@@ -26,9 +26,9 @@ class ApiPeliculasController{
     function showPeliculas(){
         $peliculas = $this->PeliculasModel->getPeliculas();
         return $this->PeliculasView->response($peliculas, 200);
-      
     }
 
+  
     public function showPelicula($params = null) {
         // obtengo el id del arreglo de params
         $id = $params[':ID'];
@@ -41,8 +41,8 @@ class ApiPeliculasController{
             $this->PeliculasView->response("La pelicula con el id=$id no existe", 404);
     }
     
-    
-    public function insertarPelicula($params = null) {
+ 
+    public function insertarPelicula() {
         $pelicula = $this->getData();
 
         if (empty($pelicula->titulo) || empty($pelicula->duracion) || empty($pelicula->anio)|| empty($pelicula->imagen)|| empty($pelicula->sinopsis)
@@ -65,6 +65,7 @@ class ApiPeliculasController{
         } else 
             $this->PeliculasView->response("La peliculas con el id=$id no existe", 404);
     }
+
 
     public function editarPelicula($params = []) {
 

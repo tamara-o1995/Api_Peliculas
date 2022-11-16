@@ -9,9 +9,7 @@ class ApiPeliculasModel {
     }
 
 
-    /**
-     * Devuelve la lista de peliculas completa.
-     */
+    /* Devuelvo la lista de peliculas completa. */
     function getPeliculas()
     {
         // 1. abro conexión a la DB
@@ -23,17 +21,16 @@ class ApiPeliculasModel {
         return  $query->fetchAll(PDO::FETCH_OBJ); // devuelve un arreglo de objetos
     }
 
+    /* Devuelve una pelicula especifica mediante su id. */
     public function getPelicula($id) {
         $query = $this->db->prepare("SELECT * FROM peliculas WHERE id = ?");
         $query->execute([$id]);
-        $task = $query->fetch(PDO::FETCH_OBJ);
+        $pelicula = $query->fetch(PDO::FETCH_OBJ);
         
-        return $task;
+        return $pelicula;
     }
 
-    /**
-     * Inserta una pelicula en la base de datos.
-     */
+    /* Inserto una pelicula en la base de datos. */
     public function insertarPelicula($titulo, $duracion, $anio, $imagen, $sinopsis, $video, $director, $elenco, $id_genero) {
         $query = $this->db->prepare("INSERT INTO peliculas (titulo, duracion, anio, imagen, sinopsis, video, director, elenco, id_genero) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
         $query->execute([$titulo, $duracion, $anio, $imagen, $sinopsis, $video, $director, $elenco, $id_genero]);
@@ -41,17 +38,13 @@ class ApiPeliculasModel {
         return $this->db->lastInsertId();
     }
 
-    /**
-     * Elimina una pelicula dado su id.
-     */
+    /*Elimino una pelicula dado su id. */
     function eliminarPelicula($id) {
         $query = $this->db->prepare('DELETE FROM peliculas WHERE id = ?');
         $query->execute([$id]);
     }
 
-        /**
-     * Edita una pelicula dado su id.
-     */
+    /*Modifico una pelicula dado su id.*/
 
     public function editarPelicula( $id_pelicula, $titulo, $duracion, $anio, $imagen, $sinopsis, $video, $director, $elenco, $id_genero) {
         $query = $this->db->prepare("UPDATE peliculas SET titulo = ?, duracion = ?, anio = ?, imagen = ?, sinopsis = ?, video = ?, director = ?, elenco = ?, id_genero = ? WHERE id=?");
